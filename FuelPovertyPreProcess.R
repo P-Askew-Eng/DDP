@@ -1,7 +1,7 @@
 #Preprocessing for Fuel Poverty project
 #files come from the UK GOvernment's DIgest of UK Energy Statisitcs.  The data is for England only.
-#library(xlsx)
-library(openxlsx)
+
+library(openxlsx)# yhis can handle bigger (small) Excel files
 #Get files
 if(!file.exists("data")){
   dir.create("data")
@@ -22,9 +22,7 @@ FPStatsurl<-"https://www.gov.uk/government/uploads/system/uploads/attachment_dat
 if (!file.exists("./data/raw2011data2.xlsx")){
     download.file(FPStatsurl,destfile="./data/raw2011data2.xlsx",mode="wb")
 }
-#FP2011dat<-read.xlsx("./data/raw2011data2.xlsx",sheetName="County",header=TRUE,startRow=3,colIndex = 1:5)
-#FP2012dat<-read.xlsx("./data/raw2012data2.xlsx",sheetName="Table 4",header=TRUE,startRow=3,colIndex = 1:5)
-#FP2013dat<-read.xlsx("./data/raw2013data2.xlsx",sheetName="Table 4",header=TRUE,startRow=3,colIndex = 1:5)
+
 FP2011dat<-read.xlsx("./data/raw2011data2.xlsx",sheet=5,colNames=TRUE,startRow=3)
 FP2012dat<-read.xlsx("./data/raw2012data2.xlsx",sheet=7,colNames=TRUE,startRow=3)
 FP2013dat<-read.xlsx("./data/raw2013data2.xlsx",sheet=7,colNames=TRUE,startRow=3)
