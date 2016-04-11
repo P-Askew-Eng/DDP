@@ -22,7 +22,10 @@ FPStatsurl<-"https://www.gov.uk/government/uploads/system/uploads/attachment_dat
 if (!file.exists("./data/raw2011data2.xlsx")){
     download.file(FPStatsurl,destfile="./data/raw2011data2.xlsx",mode="wb")
 }
-
+FPStatsurl<-"https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/481867/NOVEMBER_2015_-_Sub-national_total_final_energy_consumption_statistics_FINAL.xlsx"
+if (!file.exists("./data/consumptiondata.xlsx")){
+    download.file(FPStatsurl,destfile="./data/consumptiondata.xlsx",mode="wb")
+}
 FP2011dat<-read.xlsx("./data/raw2011data2.xlsx",sheet=5,colNames=TRUE,startRow=3)
 FP2012dat<-read.xlsx("./data/raw2012data2.xlsx",sheet=7,colNames=TRUE,startRow=3)
 FP2013dat<-read.xlsx("./data/raw2013data2.xlsx",sheet=7,colNames=TRUE,startRow=3)
