@@ -39,7 +39,7 @@ FP2012dat<-FP2012dat[order(FP2012dat$LA.Name),]
 FP2013dat<-FP2013dat[order(FP2013dat$LA.Name),]
 numhouseholds<-cbind(data.frame(FP2011dat[,2],FP2011dat[,4],FP2012dat[,4],FP2013dat[,4],stringsAsFactors = FALSE))
 colnames(numhouseholds)<-c("Authority",2011,2012,2013)
-newpovmeasure<-cbind(data.frame(FP2011dat[,2],FP2011dat[,5],FP2012dat[,5],FP2013dat[,5],stringsAsFactors = FALSE))
+newpovmeasure<-cbind(data.frame(FP2011dat[,2],FP2011dat[,6]*100,FP2012dat[,6],FP2013dat[,6],stringsAsFactors = FALSE))
 colnames(newpovmeasure)<-c("Authority",2011,2012,2013)
 write.csv(numhouseholds,file="./FPShiny/data/numhouseholds.csv")
 write.csv(newpovmeasure,file="./FPShiny/data/newpovmeasure.csv")
