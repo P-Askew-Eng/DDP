@@ -9,10 +9,12 @@ shinyUI(pageWithSidebar(
                             "2012", "2013"),
                 selected = "2010"),
     
-    sliderInput("range", 
-                label = "Year of interest:",
-                min = 0, max = 100, value = c(0, 100))
+    radioButtons("radio", label = "Radio buttons",
+                 choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
+                 selected = 1),
   ),
+  
+  
   mainPanel(
     h3("Output Area")
   )
