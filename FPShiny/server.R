@@ -1,7 +1,10 @@
 library(shiny)
 
 # Place for code that only needs to be run once e.g. loading the data.
-# data<-readcsv("/data/fp.csv")
+
+houses<-read.csv("./data/numhouseholds.csv", header=T)
+newfp<-read.csv("./data/newpovmeasure.csv", header=T)
+councils<-houses[,1]
 # Load and run another file 
 # source("otherfile.R")
 shinyServer(
