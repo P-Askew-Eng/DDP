@@ -4,23 +4,17 @@ library(shiny)
 shinyUI(pageWithSidebar(
   headerPanel("England Fuel Poverty Statistics"),
     uiOutput("ui"),
-#  sidebarPanel(
-#    h3("Input Area")
-#    selectInput("var", 
-#                label = "Choose a year to display",
-#                choices = c("2010", "2011",
-#                            "2012", "2013"),
-#                selected = "2010"),
-    
-#    radioButtons("radio", 
-#                 label = "Radio buttons",
-#                 choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
-#                 selected = 1),
-#  ),
+#  Sidepanel  is generated in Server.R as it uses the data from the files
+#    to generate the list
+#   
   
   
   mainPanel(
-    plotOutput("plotDisplay"),
-    dataTableOutput("mytable")
+      tabsetPanel(
+          tabPanel("Annual Change", plotOutput("fpbyyear")), 
+          tabPanel("Detailed Statistics", tableOutput("mytable")),
+          tabPanel("About", includeMarkdown("About.md")) 
+      )    
  )
 ))
+
