@@ -2,25 +2,9 @@ library(shiny)
 
 # Place for code that only needs to be run once e.g. loading the data.
 
-houses<-read.csv("./data/numhouseholds.csv", header=T)
-colnames(houses)<-c("Council","2011","2012","2013")
-rownames(houses)<-houses[,2]
-houses<-houses[,-1]
-newfp<-read.csv("./data/newpovmeasure.csv", header=T)
-colnames(newfp)<-c("Council","2011","2012","2013")
-rownames(newfp)<-newfp[,2]
-newfp<-newfp[,-2]
-cons2011<-read.csv("./data/Cons2011dat.csv",header=T)
-cons2012<-read.csv("./data/Cons2012dat.csv",header=T)
-cons2013<-read.csv("./data/Cons2013dat.csv",header=T)
-rownames(cons2013)<-cons2013[,2]
-cons2013<-cons2013[,-2]
-rownames(cons2012)<-cons2012[,2]
-cons2012<-cons2012[,-2]
-rownames(cons2011)<-cons2011[,2]
-cons2011<-cons2011[,-2]
+#
 # Load and run another file 
-# source("otherfile.R")
+ source("helper.R")
 
 
 shinyServer(
@@ -48,8 +32,8 @@ shinyServer(
       })# end sidebarPanel
       
       output$fpbyyear <- renderPlot({
-          tothouses<-as.numeric(houses[input$council,2:4])
-          totpov<-as.numeric(newfp[input$council,2:4])
+          tothouses<-as.numeric(houses[input$council,])
+          totpov<-as.numeric(newfp[input$council,])
           ratio<-as.numeric(totpov/tothouses*100)
           chrttit<-paste("Households in Fuel Poverty in",input$council)
           barplot(ratio, 
@@ -69,17 +53,32 @@ shinyServer(
               paste("Detailed Statistics for", input$year, "in", input$council)
           })           
     output$text2 <- renderText({ 
-        paste("Households in Fuel Poverty",newfp[input$council,input$year],"(",
-              round(newfp[input$council,input$year]/houses[input$council,input$year]*100,2),"%)")
+        paste("Number of households in fuel poverty: ",newfp[input$council,input$year],"(",
+              round(newfp[input$council,input$year]/houses[input$council,input$year]*100,2),"%)", sep="")
     })          
-    
-    output$conbrkdn <- renderPlot({
+    output$text3 <- renderText({ 
+        paste("National Average for ", input$year,": ",
+              round(sum(newfp[,input$year])/sum(houses[,input$year])*100,2),"%",  sep="")
+    })    
+    output$text4 <- renderText({ 
         if (input$year=="2013"){
-            consummary<-as.numeric(cons2013[input$council,2:6])
+            consummary<-as.numeric(cons2013[input$council,])
+        } else if (input$year=="2012"){
+            consummary<-as.numeric(cons2012[input$council,])
+        } else if (input$year=="2011"){
+            consummary<-as.numeric(cons2011[input$council,])
+        }
+        paste("Average Annual Household Consumption ", input$year,": ",
+              round(sum(consummary)/sum(houses[input$council,input$year])*1000,2),"MWh",sep="")
+    })   
+    
+        output$conbrkdn <- renderPlot({
+        if (input$year=="2013"){
+            consummary<-as.numeric(cons2013[input$council,])
             } else if (input$year=="2012"){
-                consummary<-as.numeric(cons2012[input$council,2:6])
+                consummary<-as.numeric(cons2012[input$council,])
             } else if (input$year=="2011"){
-                consummary<-as.numeric(cons2011[input$council,2:6])
+                consummary<-as.numeric(cons2011[input$council,])
             }
            pie(consummary, 
             labels="",
