@@ -12,7 +12,10 @@ shinyUI(pageWithSidebar(
   mainPanel(
       tabsetPanel(
           tabPanel("Annual Change", plotOutput("fpbyyear")), 
-          tabPanel("Detailed Statistics", tableOutput("mytable")),
+          tabPanel("Detailed Statistics", h3(textOutput("text1"))
+                   ,h4(textOutput("text2"))
+                   ,plotOutput("conbrkdn")
+                   ),
           tabPanel("About", includeMarkdown("About.md")) 
       )    
  )
