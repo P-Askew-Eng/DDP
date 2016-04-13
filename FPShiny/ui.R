@@ -20,6 +20,7 @@ shinyUI(pageWithSidebar(
   
   
   mainPanel(
-    plotOutput("plotDisplay")
+    plotOutput("plotDisplay"),
+    dataTableOutput("mytable")
  )
 ))

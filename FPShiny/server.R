@@ -28,15 +28,25 @@ shinyServer(
       })# end sidebarPanel
       
       output$plotDisplay <- renderPlot({
-          tothouses<-houses[input$council,1:3]
-          totpov<-as.numeric(newfp[input$council,1:3])
-          barplot(totpov, 
-                  main=input$Council, names.arg=colnames(houses[,1:3]),
+          tothouses<-as.numeric(houses[input$council,2:4])
+          totpov<-as.numeric(newfp[input$council,2:4])
+          ratio<-as.numeric(totpov[,1:3]/tothouses[,1:3]*100)
+          print(ratio)
+          barplot(ratio, 
+                  #main=("Households in Fuel Poverty in /n" + input$Council), 
+                  names.arg=colnames(houses[,1:3]),
                   ylim=c(0,30),
-                  ylab="Percentage of Fuel Poverty",
+                  ylab="Percentage of Households in Fuel Poverty",
                   xlab="Year")
           
       })  # end renderPlot
-      
+      output$mytable = renderDataTable({
+          tothouses<-as.numeric(houses[input$council,2:4])
+          totpov<-as.numeric(newfp[input$council,2:4])
+          ratio<-as.numeric(totpov/tothouses)
+          print(totpov)
+          print(ratio)
+          observe(input$council)
+      })
           }
 )
