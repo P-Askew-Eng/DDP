@@ -10,7 +10,7 @@ library(shiny)
 shinyServer(
     # this is the bit that runs when the user interacts
   function(input,output){
-      var <- reactive({input$year})
+  #    var <- reactive({input$year})
             output$ui <- renderUI({sidebarPanel( 
           
           selectInput("council", "Select Local Authority:", 
@@ -35,13 +35,15 @@ shinyServer(
           tothouses<-as.numeric(houses[input$council,])
           totpov<-as.numeric(newfp[input$council,])
           ratio<-as.numeric(totpov/tothouses*100)
-          chrttit<-paste("Households in Fuel Poverty in",input$council)
+          chrttit<-paste("Households in Fuel Poverty in",input$council,"Compared to National Rate")
           barplot(ratio, 
-                  main=chrttit, 
+                  main=chrttit,
+                  col=44,
                   names.arg=colnames(houses[,1:3]),
                   ylim=c(0,25),
                   ylab="Percentage of Households in Fuel Poverty",
                   xlab="Year")
+          points(natpov,pch=16,cex=2)
           
       })  # end renderPlot
  #     output$mytable = renderDataTable({
@@ -53,27 +55,39 @@ shinyServer(
               paste("Detailed Statistics for", input$year, "in", input$council)
           })           
     output$text2 <- renderText({ 
-        paste("Number of households in fuel poverty: ",newfp[input$council,input$year],"(",
+        paste("Number of households in fuel poverty: ",newfp[input$council,input$year]," (",
               round(newfp[input$council,input$year]/houses[input$council,input$year]*100,2),"%)", sep="")
     })          
     output$text3 <- renderText({ 
         paste("National Average for ", input$year,": ",
               round(sum(newfp[,input$year])/sum(houses[,input$year])*100,2),"%",  sep="")
     })    
-    output$text4 <- renderText({ 
+    output$text4 <- renderUI({ 
         if (input$year=="2013"){
             consummary<-as.numeric(cons2013[input$council,])
+            totcons<-sum(cons2013)
         } else if (input$year=="2012"){
             consummary<-as.numeric(cons2012[input$council,])
+            totcons<-sum(cons2012)
         } else if (input$year=="2011"){
             consummary<-as.numeric(cons2011[input$council,])
+            totcons<-sum(cons2011)
         }
-        paste("Average Annual Household Consumption ", input$year,": ",
-              round(sum(consummary)/sum(houses[input$council,input$year])*1000,2),"MWh",sep="")
+        str1<-paste("Average annual household consumption in ",input$council," for ", input$year,": ",
+               round(sum(consummary)/sum(houses[input$council,input$year])*1000,2),"MWh",sep="")
+        str2<-paste("Average annual national household consumption for ", input$year,": ",
+               round(totcons/sum(houses[,input$year])*1000,2),"Mwh",sep="")
+        HTML(paste(str1,str2,sep="<br/>"))
     })   
     
         output$conbrkdn <- renderPlot({
-        if (input$year=="2013"){
+#        consummary<-rbind(cons2011[input$council,],cons2012[input$council,],
+#                          cons2013[input$council,])
+#        rownames(consummary)<-c("2011","2012","2013")   
+#        print(consummary[input$year,])
+#        str(consummary)    
+            
+            if (input$year=="2013"){
             consummary<-as.numeric(cons2013[input$council,])
             } else if (input$year=="2012"){
                 consummary<-as.numeric(cons2012[input$council,])

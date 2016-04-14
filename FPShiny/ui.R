@@ -1,5 +1,5 @@
 library(shiny)
-
+require(markdown)
 
 shinyUI(pageWithSidebar(
   headerPanel("England Fuel Poverty Statistics"),
@@ -12,13 +12,13 @@ shinyUI(pageWithSidebar(
   mainPanel(
       tabsetPanel(
           tabPanel("Annual Change", plotOutput("fpbyyear")), 
-          tabPanel("Detailed Statistics", h3(textOutput("text1"))
-                   ,h4(textOutput("text2"))
-                   ,h4(textOutput("text3"))
+          tabPanel("Detailed Statistics", h4(textOutput("text1"))
+                   ,h5(textOutput("text2"))
+                   ,h5(textOutput("text3"))
                    ,plotOutput("conbrkdn")
-                   ,h4(textOutput("text4"))
+                   ,h5(htmlOutput("text4"))
                    ),
-          tabPanel("About", includeMarkdown("About.md")) 
+          tabPanel("Help", includeMarkdown("About.md")) 
       )    
  )
 ))
