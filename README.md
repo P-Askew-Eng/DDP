@@ -8,7 +8,7 @@ The original plan was to use a choropleth (coloured map) but neither GooglVis or
 
 Shiny App is at https://p-askew-eng.shinyapps.io/FPShiny/
 
-Presentation Pitch is at http://rpubs.com/paskew/170992
+Presentation Pitch is at http://rpubs.com/paskew/updatedfpp
 
 Code is here
 
