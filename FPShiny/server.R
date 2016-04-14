@@ -36,14 +36,14 @@ shinyServer(
           totpov<-as.numeric(newfp[input$council,])
           ratio<-as.numeric(totpov/tothouses*100)
           chrttit<-paste("Households in Fuel Poverty in",input$council,"Compared to National Rate")
-          barplot(ratio, 
+          bp<-barplot(ratio, 
                   main=chrttit,
                   col=44,
                   names.arg=colnames(houses[,1:3]),
                   ylim=c(0,25),
                   ylab="Percentage of Households in Fuel Poverty",
                   xlab="Year")
-          points(natpov,pch=16,cex=2)
+          points(bp,natpov,pch=16,cex=2)
           
       })  # end renderPlot
  #     output$mytable = renderDataTable({

@@ -48,6 +48,8 @@ A preprocessing script downloads the data, extracts the relevant components and 
 
 The processed data is saved as smaller files for use in the Shiny App
 
+The App is available on [Shiny](https://p-askew-eng.shinyapps.io/FPShiny/) and the code is available on [Github](https://github.com/P-Askew-Eng/DDP)
+
 Use
 ========================================================
 
@@ -72,11 +74,4 @@ No simple way exists for this to be created for the UK without processing shapef
 
 5. Optimise processing
 
-Links and References
-========================================================
 
-![Screenshot](FP_Pres-figure/ShinyFP.png)
-
-The App is available on [Shiny](https://p-askew-eng.shinyapps.io/FPShiny/)
-
-The code is available on [Github](https://github.com/P-Askew-Eng/DDP)
