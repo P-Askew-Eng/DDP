@@ -1,58 +1,62 @@
-FP_Pres
+Fuel Poverty Shiny Application
 ========================================================
 author: Paul Askew
-date: 22 April 2016
+date: April 2016
 
-First Slide
+Completed as part of Coursera Developing Data Products module
+
+
+Introduction
 ========================================================
+1. Fuel Poverty occurs where households spend a disproportinate amount of income on fuel needs such as heating, lighting and cooking
+2. This was measured from 2010 as households spending more than 10% of their income on fuel.
+3. From 2011 a new measure was introduced (Low Income High Cost) in which housing costs were excluded from the calculation.  It is this measure that the App uses.
 
-For more details on authoring R presentations click the
-**Help** button on the toolbar.
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-Slide With Code
-========================================================
-
-```{r}
-summary(cars)
-```
-
-Slide With Plot
-========================================================
-
+Fuel Poverty rates in England for the Years 2011 to 2013
 ```{r, echo=FALSE}
-plot(cars)
+setwd("C:/Users/Paul Askew/Coursera/DDP/FPShiny")
+houses<-read.csv("./data/numhouseholds.csv", header=T)
+rownames(houses)<-houses[,2]
+houses<-houses[,-c(1,2)]
+colnames(houses)<-c("2011","2012","2013")
+newfp<-read.csv("./data/newpovmeasure.csv", header=T)
+rownames(newfp)<-newfp[,2]
+newfp<-newfp[,-c(1,2)]
+colnames(newfp)<-c("2011","2012","2013")
+avpov<-round(colSums(newfp)/colSums(houses)*100,1)
+minpov<-round(cbind(min(newfp[,1])/houses[which.min(newfp[,1]),1],
+                    min(newfp[,2])/houses[which.min(newfp[,2]),2],
+                    min(newfp[,3])/houses[which.min(newfp[,3]),3])*100,2)
+maxpov<-round(cbind(max(newfp[,1])/houses[which.max(newfp[,1]),1],
+                    max(newfp[,2])/houses[which.max(newfp[,2]),2],
+                    max(newfp[,3])/houses[which.max(newfp[,3]),3])*100,2)
+povnames<-c("Average %","Maximum %","Minimum %")
+pov<-rbind(avpov,maxpov,minpov)
+rownames(pov)<-povnames
+print(pov)
 ```
 
-1 Introduction
-========================================================
-1. Fuel Poverty occurs where households spend a disproportinate amount of income on fuel needs such as heating lighting and cooking
-2. this ws measured form 2008 as Households spending more than 10% of their income on fuel.
-3. from 2011 a new measure ws introduced (Low Income High Cost) in which housing costs were excluded from the claculation.
-
-2 Concept
+Design
 ========================================================
 
-A preprocessing script downloads the data, extracts the releavant components and creates new files for use by the app.  The files include 
-*local authoirty name
-*number of households in each Local authority area by year
-*number in fuel poverty by each year for the old and the new measures.  
+A preprocessing script downloads the data, extracts the relevant components and creates new files for use by the app.  The files include 
 
-It also loads the overall domestic energy use and how this is broken down between fuel sources for years of interest.
+- local authority name
+- number of households in each Local authority area by year
+- number in fuel poverty by each year  
+- overall domestic energy use
+
+The processed data is saved as smaller files for use in the Shiny App
 
 Use
 ========================================================
 
+![Screenshot](FP_Pres-figure/ShinyFP2.png)
+![Screenshot](FP_Pres-figure/ShinyFP.png)
+***
 The user selects a local authority from a drop down list and the app displays a graph showing the change in fuel poverty over the years for which data is available The percentage of households is presented.
 
 By selecting a radio button a detailed breakdown for a particular year is given, comprising the average energy use for that local authority and a pie chart of the fuels in use.
-
-Example
-========================================================
-
 
 Future development
 ========================================================
@@ -60,7 +64,19 @@ Future development
 The fuel poverty data is on a sub regional basis and not all the other data is at a comparable level.
 
 2. Create a choropleth (Geomap or heatmap) of the country.
-No simple way exists for this to be created without processing shapefiles or kmls so it is beyond the scope of the project for the Coursera phase.
+No simple way exists for this to be created for the UK without processing shapefiles or kmls so it is beyond the scope of the project for the Coursera phase.
+
+3. Expand to other UK nations
+
+4. Update with new data as available
+
+5. Optimise processing
 
 Links and References
 ========================================================
+
+![Screenshot](FP_Pres-figure/ShinyFP.png)
+
+The App is available on [Shiny](https://p-askew-eng.shinyapps.io/FPShiny/)
+
+The code is available on [Github](https://github.com/P-Askew-Eng/DDP)

@@ -1,67 +1,47 @@
-FP_Pres
+Fuel Poverty Shiny Application
 ========================================================
 author: Paul Askew
-date: 22 April 2016
+date: April 2016
 
-First Slide
+Completed as part of Coursera Developing Data Products module
+
+
+Introduction
 ========================================================
+1. Fuel Poverty occurs where households spend a disproportinate amount of income on fuel needs such as heating, lighting and cooking
+2. This was measured from 2010 as households spending more than 10% of their income on fuel.
+3. From 2011 a new measure was introduced (Low Income High Cost) in which housing costs were excluded from the calculation.  It is this measure that the App uses.
 
-For more details on authoring R presentations click the
-**Help** button on the toolbar.
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-Slide With Code
-========================================================
-
-
-```r
-summary(cars)
-```
+Fuel Poverty rates in England for the Years 2011 to 2013
 
 ```
-     speed           dist       
- Min.   : 4.0   Min.   :  2.00  
- 1st Qu.:12.0   1st Qu.: 26.00  
- Median :15.0   Median : 36.00  
- Mean   :15.4   Mean   : 42.98  
- 3rd Qu.:19.0   3rd Qu.: 56.00  
- Max.   :25.0   Max.   :120.00  
+           2011  2012  2013
+Average % 10.90 10.40 10.40
+Maximum % 15.49 20.15 18.93
+Minimum %  8.14  2.36  3.88
 ```
 
-Slide With Plot
+Design
 ========================================================
 
-![plot of chunk unnamed-chunk-2](FP_Pres-figure/unnamed-chunk-2-1.png)
+A preprocessing script downloads the data, extracts the relevant components and creates new files for use by the app.  The files include 
 
-1 Introduction
-========================================================
-1. Fuel Poverty occurs where households spend a disproportinate amount of income on fuel needs such as heating lighting and cooking
-2. this ws measured form 2008 as Households spending more than 10% of their income on fuel.
-3. from 2011 a new measure ws introduced (Low Income High Cost) in which housing costs were excluded from the claculation.
+- local authority name
+- number of households in each Local authority area by year
+- number in fuel poverty by each year  
+- overall domestic energy use
 
-2 Concept
-========================================================
-
-A preprocessing script downloads the data, extracts the releavant components and creates new files for use by the app.  The files include 
-*local authoirty name
-*number of households in each Local authority area by year
-*number in fuel poverty by each year for the old and the new measures.  
-
-It also loads the overall domestic energy use and how this is broken down between fuel sources for years of interest.
+The processed data is saved as smaller files for use in the Shiny App
 
 Use
 ========================================================
 
+![Screenshot](FP_Pres-figure/ShinyFP2.png)
+![Screenshot](FP_Pres-figure/ShinyFP.png)
+***
 The user selects a local authority from a drop down list and the app displays a graph showing the change in fuel poverty over the years for which data is available The percentage of households is presented.
 
 By selecting a radio button a detailed breakdown for a particular year is given, comprising the average energy use for that local authority and a pie chart of the fuels in use.
-
-Example
-========================================================
-
 
 Future development
 ========================================================
@@ -69,7 +49,19 @@ Future development
 The fuel poverty data is on a sub regional basis and not all the other data is at a comparable level.
 
 2. Create a choropleth (Geomap or heatmap) of the country.
-No simple way exists for this to be created without processing shapefiles or kmls so it is beyond the scope of the project for the Coursera phase.
+No simple way exists for this to be created for the UK without processing shapefiles or kmls so it is beyond the scope of the project for the Coursera phase.
+
+3. Expand to other UK nations
+
+4. Update with new data as available
+
+5. Optimise processing
 
 Links and References
 ========================================================
+
+![Screenshot](FP_Pres-figure/ShinyFP.png)
+
+The App is available on [Shiny](https://p-askew-eng.shinyapps.io/FPShiny/)
+
+The code is available on [Github](https://github.com/P-Askew-Eng/DDP)
