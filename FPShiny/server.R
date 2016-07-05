@@ -16,12 +16,12 @@ shinyServer(
           selectInput("council", "Select Local Authority:", 
                       choices=rownames(houses), selected = "Adur"),
           hr(),
-          helpText("Data from DUKES 2011-2013"),
+          helpText("Data from DUKES 2011-2014"),
           hr(), hr(), hr(),    
           
               radioButtons("year", 
                            label = " Select Year of Interest",
-                           choices = list("2011", "2012", "2013"), 
+                           choices = list("2011", "2012", "2013","2014"), 
                            selected = "2013"),
           hr(),     
           helpText("Select year to display information in the Detailed Statistics tab
@@ -72,6 +72,9 @@ shinyServer(
         } else if (input$year=="2011"){
             consummary<-as.numeric(cons2011[input$council,])
             totcons<-sum(cons2011)
+        }else if (input$year=="2014"){
+            consummary<-as.numeric(cons2014[input$council,])
+            totcons<-sum(cons2014)
         }
         str1<-paste("Average annual household consumption in ",input$council," for ", input$year,": ",
                round(sum(consummary)/sum(houses[input$council,input$year])*1000,2),"MWh",sep="")
@@ -94,6 +97,12 @@ shinyServer(
             } else if (input$year=="2011"){
                 consummary<-as.numeric(cons2011[input$council,])
             }
+            else if (input$year=="2014"){
+                consummary<-as.numeric(cons2014[input$council,])
+            }
+            
+            
+            
            pie(consummary, 
             labels="",
             main=paste("Proportion of Energy used in",input$council,"in",input$year),
